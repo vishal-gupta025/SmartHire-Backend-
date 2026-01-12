@@ -1,0 +1,10 @@
+from django.urls import path
+from .views import CandidateJobRecommendationsView
+
+urlpatterns = [
+    path(
+        "candidate/jobs/",
+        CandidateJobRecommendationsView.as_view(),
+        name="candidate-job-recommendations",
+    ),
+]

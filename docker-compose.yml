@@ -1,0 +1,48 @@
+
+services:
+  backend:
+    build: ./backend
+    container_name: smarthire-backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - redis
+      - db
+
+  celery:
+    build: ./backend
+    container_name: smarthire-celery
+    command: celery -A config worker -l info --pool=solo
+    volumes:
+      - ./backend:/app
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - redis
+      - db
+
+  redis:
+    image: redis:7
+    container_name: smarthire-redis
+    ports:
+      - "6379:6379"
+
+  db:
+    image: postgres:15
+    container_name: smarthire-db
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
