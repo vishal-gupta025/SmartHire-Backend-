@@ -117,7 +117,7 @@ Based on resume skills and job requirements
 
 Uses the same rule-based matching logic
 
-# 🛠️ Technologies Used (Only What Is Implemented)
+# 🛠️ Technologies Used 
 Backend Framework
 
 Python
@@ -166,5 +166,6 @@ Separation of services (backend, database, redis, celery)
 
 Vishal Gupta
 Backend Developer | Django | REST APIs | Scalable Systems
+
 
 
